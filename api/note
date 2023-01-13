@@ -1,0 +1,4 @@
+using jwt we will store user details during login in cookie and during hotel update or delete we will check wether he is admin or not then 
+we will give yes else no
+
+cookieparser:- to store jwt hash token in cookie

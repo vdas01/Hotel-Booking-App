@@ -2,6 +2,7 @@ import express from 'express'
 import Hotel from '../models/Hotel.js'
 import { createError } from '../utils/error.js';
 import { createHotel, deleteHotel, updateHotel,getHotel,getHotels } from '../controllers/hotel.js';
+import { verifyAdmin } from '../utils/verifyToken.js';
 const router = express.Router();
 
 //<<<<<<<<<<<----------CREATE-------------->>>>>>>>>>>>>>>>
@@ -16,7 +17,7 @@ const router = express.Router();
 //   }
 // })
 
-router.post("/",createHotel);
+router.post("/",verifyAdmin,createHotel);
 
 //<<<<<<<<------------UPDATE------------>>>>>>>>>>>>>>>>>>>
 // router.put("/:id",async (req,res)=>{  
@@ -33,7 +34,7 @@ router.post("/",createHotel);
 // }
 // })
 
-router.put("/:id",updateHotel);
+router.put("/:id",verifyAdmin,updateHotel);
 
 //<<<<<<<<<<<------------DELETE----------------->>>>>>>>>>>
 // router.delete("/:id",async (req,res)=>{  
@@ -46,7 +47,7 @@ router.put("/:id",updateHotel);
 //   }
 //   })
 
-router.delete("/:id",deleteHotel);
+router.delete("/:id",verifyAdmin,deleteHotel);
 
 //<<<<<<<<<--------------GET------------------>>>>>>>>>>>>>
 // router.get("/:id",async (req,res)=>{  
@@ -73,24 +74,24 @@ router.get("/:id",getHotel);
 //   })
 
 
-  router.get("/",async (req,res,next)=>{  
-    const failed = true;
+  // router.get("/",async (req,res,next)=>{  
+  //   const failed = true;
     // const err = new Error();
     // err.status = 404;
     // err.message = "Sorry not found!";
     // if(failed) return next(err);
     //or
     // if(failed) return next(createError(401,"You are not authenticated"));
-    try{
-        const hotels = await Hotel.find();
-         res.status(200).json(hotels);
-    }
-    catch(error){
+    // try{
+    //     const hotels = await Hotel.find();
+    //      res.status(200).json(hotels);
+    // }
+    // catch(error){
       // res.status(500).json(error);
       //or
-      next(error);
-    }
-    }) 
+    //   next(error);
+    // }
+    // }) 
 
 //testing middleware
 //   router.get("/",async (req,res,next)=>{
