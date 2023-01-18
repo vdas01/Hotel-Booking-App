@@ -8,6 +8,7 @@ import usersRoute from './routes/users.js';
 import hotelsRoute from './routes/hotels.js';
 import roomsRoute from './routes/rooms.js';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 const app = express();
 const port = 8000;
 dotenv.config();
@@ -36,6 +37,7 @@ app.get("/",(req,res)=>{
 
 
 //middlewarre
+app.use(cors());
 //to send json data
 app.use(express.json());
 app.use(cookieParser());
